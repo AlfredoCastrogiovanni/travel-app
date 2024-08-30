@@ -4,6 +4,8 @@ Un sito che permette ad un utente registrato **la gestione di diversi viaggi** o
 Il sito permette la creazione di diversi viaggi divisi in giornate che a loro volta possono contenere diverse tappe per permettere all'utente di organizzarsi al meglio.
 
 ## Setup del progetto
+> [!WARNING]
+> Il progetto per funzionare ha bisogno del suo backend funzionante che puoi trovare [qui]([https://pages.github.com/](https://github.com/AlfredoCastrogiovanni/travel-app-backend)).
 
 Crea la cartella node_modules e installa tutte le dipendenze con il comando:
 ```sh
