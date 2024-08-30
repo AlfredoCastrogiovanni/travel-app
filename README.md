@@ -5,7 +5,7 @@ Il sito permette la creazione di diversi viaggi divisi in giornate che a loro vo
 
 ## Setup del progetto
 > [!WARNING]
-> Il progetto per funzionare ha bisogno del suo backend funzionante che puoi trovare [qui]([https://pages.github.com/](https://github.com/AlfredoCastrogiovanni/travel-app-backend)).
+> Il progetto per funzionare ha bisogno del suo backend funzionante che puoi trovare [qui](https://github.com/AlfredoCastrogiovanni/travel-app-backend).
 
 Crea la cartella node_modules e installa tutte le dipendenze con il comando:
 ```sh
