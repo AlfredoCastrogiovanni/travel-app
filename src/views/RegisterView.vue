@@ -16,10 +16,13 @@
         methods: {
             async register() {
                 await this.useAuthStore.register(this.formData);
-                this.formData.name = ''
-                this.formData.email = ''
-                this.formData.password = ''
-                this.useAuthStore.isAuthenticated ? this.$router.push('/') : '';
+                if (this.useAuthStore.isAuthenticated) {
+                    this.formData.name = '';
+                    this.formData.email = '';
+                    this.formData.password = '';
+                    this.useAuthStore.errors = [];
+                    this.$router.push('/');
+                }
             }
         },
         computed: {
@@ -37,15 +40,24 @@
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" v-model="formData.name" class="form-control" id="name">
+                    <input type="text" v-model="formData.name" class="form-control" :class="{'is-invalid': this.useAuthStore.errors?.name != undefined }" id="name">
+                    <div class="invalid-feedback" v-if="!!this.useAuthStore.errors?.name">
+                        {{ this.useAuthStore.errors?.name[0] }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" v-model="formData.email" class="form-control" id="email">
+                    <input type="email" v-model="formData.email" class="form-control" :class="{'is-invalid': this.useAuthStore.errors?.email != undefined }" id="email">
+                    <div class="invalid-feedback" v-if="!!this.useAuthStore.errors?.email">
+                        {{ this.useAuthStore.errors?.email[0] }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" v-model="formData.password" class="form-control" id="password">
+                    <input type="password" v-model="formData.password" class="form-control" :class="{'is-invalid': this.useAuthStore.errors?.password != undefined }" id="password">
+                    <div class="invalid-feedback" v-if="!!this.useAuthStore.errors?.password">
+                        {{ this.useAuthStore.errors?.password[0] }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>

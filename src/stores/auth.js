@@ -7,7 +7,7 @@ export const useAuthStore = defineStore("useAuthStore", {
     state: () => ({
         user: JSON.parse(localStorage.getItem("user")) || null,
         token: localStorage.getItem("token") || null,
-        error: null
+        errors: null
     }),
     actions: {
         async login(formData) {
@@ -22,7 +22,8 @@ export const useAuthStore = defineStore("useAuthStore", {
                 localStorage.setItem("token", this.token);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
             } catch (error) {
-                this.error = "Credential error";
+                console.error('Failed to login:', error);
+                this.errors = error.response.data.errors;
             }
         },
         async register(formData) {
@@ -35,7 +36,8 @@ export const useAuthStore = defineStore("useAuthStore", {
                 localStorage.setItem("token", this.token);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
             } catch (error) {
-                this.error = "Credential error";
+                console.error('Failed to register:', error);
+                this.errors = error.response.data.errors;
             }
         },
         logout() {

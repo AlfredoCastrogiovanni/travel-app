@@ -15,9 +15,12 @@
         methods: {
             async login() {
                 await this.useAuthStore.login(this.formData);
-                this.formData.email = ''
-                this.formData.password = ''
-                this.useAuthStore.isAuthenticated ? this.$router.push('/') : '';
+                if (this.useAuthStore.isAuthenticated) {
+                    this.formData.email = '';
+                    this.formData.password = '';
+                    this.useAuthStore.errors = [];
+                    this.$router.push('/')
+                }
             }
         },
         computed: {
@@ -35,17 +38,20 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" v-model="formData.email" class="form-control" id="email">
+                    <input type="email" v-model="formData.email" class="form-control" :class="{'is-invalid': this.useAuthStore.errors?.email != undefined }" id="email">
+                    <div class="invalid-feedback" v-if="!!this.useAuthStore.errors?.email">
+                        {{ this.useAuthStore.errors?.email[0] }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" v-model="formData.password" class="form-control" id="password">
+                    <input type="password" v-model="formData.password" class="form-control" :class="{'is-invalid': !!this.useAuthStore.errors?.password }" id="password">
+                    <div class="invalid-feedback" v-if="!!this.useAuthStore.errors?.password">
+                        {{ this.useAuthStore.errors?.password[0] }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                <div class="mb-3">
-                    <h1 v-if="this.useAuthStore.error != null"> {{ this.useAuthStore.error }}</h1>
                 </div>
             </form>
         </div>
